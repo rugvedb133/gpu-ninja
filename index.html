@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://rugvedb133.github.io/gpu-ninja/images/og-image.png">
 
 <!-- Icons -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -67,8 +67,86 @@
 </header>
 
 <main id="main-content">
-  <!-- Foundations, problem/hardware, approach, results, limitations, and reflection
-       sections are built next, one at a time. -->
+
+  <section id="foundations" aria-labelledby="foundations-heading">
+    <h2 id="foundations-heading">Before the capstone</h2>
+    <p class="section-lede">
+      Four assignments led up to this project — each one a small, contained lesson
+      that fed into the final build.
+    </p>
+
+    <ol class="foundations-list">
+      <li class="foundation-card">
+        <span class="foundation-index">01</span>
+        <h3>Matrix Addition</h3>
+        <p>
+          The first kernel: element-wise addition on two 2D matrices. At a 256-thread
+          block size, a 1000&times;1000 matrix needs roughly 63&times;63 blocks — and the
+          last block along each edge isn't fully populated, so a bounds check keeps idle
+          threads from writing past the array. Also the assignment that first put shared
+          memory on my radar as an optimization lever.
+        </p>
+      </li>
+
+      <li class="foundation-card">
+        <span class="foundation-index">02</span>
+        <h3>Reduction</h3>
+        <p>
+          Summing a million-element array in parallel, the naive way and the
+          warp-aware way. The naive kernel keeps every thread busy for exactly one of
+          its nine steps before warp divergence sets in; restructuring which threads
+          stay active cut simulated GPU cycles by about 30% and raised IPC by roughly
+          25%, measured in GPGPU-Sim.
+        </p>
+      </li>
+
+      <li class="foundation-card">
+        <span class="foundation-index">03</span>
+        <h3>Tiled Matrix Multiplication</h3>
+        <p>
+          Single-GPU tiled matmul — the direct ancestor of the capstone. Sweeping the
+          tile size turned up a counter-intuitive result: 32&times;32 tiles cut global
+          memory accesses the most, but ran slowest overall. 16&times;16 made more trips
+          to memory and still won, because it balanced memory traffic against how much
+          work — and how many threads — each block had to juggle.
+        </p>
+      </li>
+
+      <li class="foundation-card">
+        <span class="foundation-index">04</span>
+        <h3>Histogram</h3>
+        <p>
+          Building a 1024-bin histogram without every thread colliding on the same
+          global counters — each block gets a private copy of the histogram,
+          accumulates locally with atomics, then merges into the shared result at
+          the end.
+        </p>
+      </li>
+    </ol>
+
+    <p class="foundations-note">
+      Assignment 1 flagged shared memory as the obvious next optimization. The capstone
+      went a different way — Unified Memory instead — for reasons that show up later
+      in this page.
+    </p>
+
+    <aside class="aside-thread" aria-label="A memorable exchange from the course">
+      <p class="aside-intro">One more thing from that semester, still living in my head rent-free:</p>
+      <div class="thread">
+        <div class="thread-msg" style="margin-left:0px;border-left:2px solid var(--border);"><span class="who student">Student</span><span class="msg">Is there any limit on the number of commits I can make to the Github repository? I'm not talking about 100–200 commits for every small change, but maybe 15–20. Would there be any difference if I first pushed all my changes to a new branch and after all testing and stuff, just merged my branch to main for final submission?</span></div>
+        <div class="thread-msg" style="margin-left:16px;border-left:2px solid var(--border);"><span class="who ta">TA</span><span class="msg">No limit on the number of commits. No difference as long as you merge and have the code in main.</span></div>
+        <div class="thread-msg" style="margin-left:32px;border-left:2px solid var(--border);"><span class="who student">Student</span><span class="msg">But which commit would the online tests run on? I don't want to crash the server by making multiple commits if every commit (even on a separate branch) is going to start the tests and strain the server.</span></div>
+        <div class="thread-msg" style="margin-left:48px;border-left:2px solid var(--border);"><span class="who ta">TA</span><span class="msg">Every commit will be tested eventually but don't worry about 10–15 commits. Hopefully, the server will make it.</span></div>
+        <div class="thread-msg" style="margin-left:64px;border-left:2px solid var(--brand);"><span class="who instructor">Instructor</span><span class="msg">I pointed a fan at the server, so it should be fine.</span></div>
+      </div>
+    </aside>
+
+  </section>
+
+  <!-- 
+      Problem/hardware, approach, results, limitations, and reflection
+       sections are built next, one at a time. 
+   -->
 </main>
 
 </body>
