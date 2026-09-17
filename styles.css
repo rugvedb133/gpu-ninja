@@ -230,6 +230,55 @@ section h2 {
   margin: 0 0 2.5rem;
 }
 
+/* == Terminal frame == */
+.term {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #101408;
+  margin: 1.75rem 0;
+}
+
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.term-bar .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.term-bar .dot.close { background: #FF5F56; }
+.term-bar .dot.min { background: #FFBD2E; }
+.term-bar .dot.zoom { background: #27C93F; }
+
+.term-bar .path {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.term-body {
+  padding: 16px 18px;
+  overflow-x: auto;
+}
+
+.term-body pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  white-space: pre;
+}
+
 /* == Quoted exchange == */
 .aside-thread {
   margin-top: 2.5rem;

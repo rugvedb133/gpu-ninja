@@ -143,11 +143,64 @@
 
   </section>
 
+  <section id="problem" aria-labelledby="problem-heading">
+    <h2 id="problem-heading">The problem</h2>
+    <p class="section-lede">
+      Matrix multiplication is embarrassingly parallel — every output element is an
+      independent dot product — which makes it a natural GPU workload. The real
+      question this project set out to answer was less "can a GPU do this faster
+      than a CPU" (yes, decisively) and more: does splitting the work across
+      <em>multiple</em> GPUs actually beat running it on just one?
+    </p>
+    <p>
+      One housekeeping detail baked into the algorithm from the start: matrix
+      multiplication doesn't commute, so A&times;B and B&times;A aren't the same
+      computation — which matters the moment you start deciding which piece goes to
+      which device.
+    </p>
+  </section>
+
+  <section id="hardware" aria-labelledby="hardware-heading">
+    <h2 id="hardware-heading">Meet Bender</h2>
+    <p class="section-lede">
+      Everything ran on UCR's shared GPU cluster node — "Bender" to anyone who's SSH'd
+      in, complete with its own ASCII-art welcome banner. Four RTX&nbsp;2070s meant four
+      independent multiplication targets to split the work across; the dual Xeons and
+      256GB of host RAM meant the CPU side was never going to be the bottleneck.
+    </p>
+
+    <div class="term" aria-hidden="true">
+      <div class="term-bar">
+        <div class="dot close"></div><div class="dot min"></div><div class="dot zoom"></div>
+        <div class="path">rbhis001@bender.engr.ucr.edu</div>
+      </div>
+      <div class="term-body">
+        <pre id="banner-pre" data-asset="text/bender-banner.txt">Loading banner…</pre>
+      </div>
+    </div>
+
+    <dl class="quick-facts">
+      <div class="fact">
+        <dt>CPU</dt>
+        <dd>2&times; Xeon 4214</dd>
+      </div>
+      <div class="fact">
+        <dt>RAM</dt>
+        <dd>256 GB</dd>
+      </div>
+      <div class="fact">
+        <dt>GPUs</dt>
+        <dd>4&times; RTX 2070, 8GB each</dd>
+      </div>
+    </dl>
+  </section>
+
   <!-- 
-      Problem/hardware, approach, results, limitations, and reflection
+      approach, results, limitations, and reflection
        sections are built next, one at a time. 
    -->
 </main>
 
+<script src="script.js" defer></script>
 </body>
 </html>
