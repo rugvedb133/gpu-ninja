@@ -7,7 +7,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 // If motion's fine and Typed.js loaded, the text types into view the first time its block scrolls into the viewport. 
 // If reduced motion is set, or Typed.js didn't load for any reason,
 // the text just appears, without any animation or waiting on scroll position.
-async function loadTextAssets() {
+async function setUpTextAssets() {
   const targets = document.querySelectorAll('[data-asset]');
   const canAnimate = !prefersReducedMotion && typeof Typed !== 'undefined';
 
@@ -42,13 +42,18 @@ async function loadTextAssets() {
 }
 
 function typeInto(el, text) {
+  // Typed.js runs .trim() on the whole string internally, which eats leading/trailing whitespace,
+  // including the leading spaces the Bender banner relies on for alignment on its first line. 
+  // A zero-width space isn't whitespace as far as `.trim()` is concerned, 
+  // so it blocks the trim at each edge without being visible.
+  const guarded = '\u200B' + text + '\u200B';
   new Typed(el, {
-    strings: [text],
-    typeSpeed: 2,
+    strings: [guarded],
+    typeSpeed: 4,
     contentType: 'null', // plain text — nothing here needs HTML parsing
     showCursor: true,
-    cursorChar: '_',
+    cursorChar: '|',
   });
 }
 
-document.addEventListener('DOMContentLoaded', loadTextAssets);
+document.addEventListener('DOMContentLoaded', setUpTextAssets);
