@@ -258,8 +258,85 @@
     </blockquote>
   </section>
 
+  <section id="results" aria-labelledby="results-heading">
+    <h2 id="results-heading">Results</h2>
+    <p class="section-lede">
+      Table I from the report, benchmarked at the default 1000&times;1000 size —
+      five phases, single GPU against all four.
+    </p>
+
+    <table>
+      <caption class="visually-hidden">Execution time by phase, single GPU vs. multi-GPU, 1000&times;1000 matrices</caption>
+      <thead>
+        <tr>
+          <th scope="col">Phase</th>
+          <th scope="col">Single GPU</th>
+          <th scope="col">Multi-GPU</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Setting up the problem</th>
+          <td>0.028903 s</td>
+          <td>0.159160 s</td>
+        </tr>
+        <tr>
+          <th scope="row">Allocating device variables</th>
+          <td>0.191964 s</td>
+          <td>0.108678 s</td>
+        </tr>
+        <tr>
+          <th scope="row">Copying host &rarr; device(s)</th>
+          <td>0.002340 s</td>
+          <td>0.001864 s</td>
+        </tr>
+        <tr>
+          <th scope="row">Executing kernel(s)</th>
+          <td>0.004720 s</td>
+          <td>0.000048 s</td>
+        </tr>
+        <tr>
+          <th scope="row">Copying device(s) &rarr; host</th>
+          <td>0.003046 s</td>
+          <td>0.001845 s</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      The real win is in <em>executing the kernel</em>: 0.004720s down to
+      0.000048s, roughly a 98&times; drop, since each GPU now computes a quarter
+      of the work at the same time instead of one GPU computing all of it in
+      sequence. The real cost shows up first: <em>setting up the problem</em>
+      got noticeably slower under multi-GPU — coordinating four streams and
+      switching device contexts isn't free. Even counting that overhead in,
+      the report's conclusion still stands: multi-GPU comes out ahead overall.
+    </p>
+
+    <figure class="diagram">
+      <img src="images/results-chart.svg" width="670" height="380" alt="Bar chart of the same five phases, single GPU vs multi-GPU. Each row is scaled to its own maximum since the phases span very different time scales. Setting up the problem: single GPU 0.028903s, multi-GPU 0.159160s (multi-GPU 5.5x slower). Allocating device variables: single GPU 0.191964s, multi-GPU 0.108678s (multi-GPU 1.8x faster). Copying host to device: single GPU 0.002340s, multi-GPU 0.001864s (multi-GPU 1.3x faster). Executing kernel: single GPU 0.004720s, multi-GPU 0.000048s (multi-GPU 98.3x faster). Copying device to host: single GPU 0.003046s, multi-GPU 0.001845s (multi-GPU 1.7x faster).">
+      <figcaption>Same five phases, bar for bar — each row scaled to its own maximum</figcaption>
+    </figure>
+
+    <h3>The actual run</h3>
+    <p>
+      And here's an actual run backing the table above — the default
+      1000&times;1000 case, straight from the terminal.
+    </p>
+
+    <div class="term">
+      <div class="term-bar">
+        <div class="dot close"></div><div class="dot min"></div><div class="dot zoom"></div>
+        <div class="path">rbhis001@bender:~/final-project-gpuninja</div>
+      </div>
+      <div class="term-body">
+        <pre data-asset="text/terminal-output-1000.txt">Loading terminal output…</pre>
+      </div>
+    </div>
+  </section>
+  
   <!-- 
-      results, limitations, and reflection
+      limitations, and reflection
        sections are built next, one at a time. 
    -->
 </main>

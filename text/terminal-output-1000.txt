@@ -1,0 +1,38 @@
+$ ./multiply
+
+Number of available GPUs: 4
+
+Setting up the problem...0.159160 s
+    A: 1000 x 1000, 1000000 elements
+    B: 1000 x 1000, 1000000 elements
+    C: 1000 x 1000, 1000000 elements
+
+Block 1 width: 500
+Block 2 width: 500
+
+Allocating Kernel 1...0.004842 s
+Allocating Kernel 2...0.107576 s
+Allocating Kernel 3...0.108678 s
+Allocating Kernel 4...0.092955 s
+
+Copying data from host to device 1..0.001854s
+Executing kernel 1...0.000048 s
+
+Copying data from host to device 2..0.001505s
+Executing kernel 2...0.000015 s
+
+Copying data from host to device 3..0.001828s
+Executing kernel 3...0.000011 s
+
+Copying data from host to device 4..0.001864s
+Executing kernel 4...0.000008 s
+
+Copying data from devices to host..0.007382s
+
+Building final matrix from blocks..0.001782s
+
+TEST PASSED 1000000
+
+Verifying results...1.693779 s
+
+Freeing Host and Device Memory...0.001932 s

@@ -76,6 +76,18 @@ img {
   outline-offset: 3px;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -154,7 +166,7 @@ img {
   margin: 0;
 }
 
-/* == Main == */
+/* == Main (sections added incrementally) == */
 main {
   max-width: 760px;
   margin: 0 auto;
@@ -220,9 +232,7 @@ section p code {
   margin: 0;
 }
 
-/* ---------------------------------------------------------------
-   Diagrams
-   --------------------------------------------------------------- */
+/* == Diagrams == */
 figure.diagram {
   margin: 1.75rem 0;
   padding: 1.5rem;
@@ -294,6 +304,43 @@ figure.diagram figcaption {
   margin: 0 0 2.5rem;
 }
 
+/* == Data table == */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.92rem;
+}
+
+thead th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding: 0 0.75rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+thead th:not(:first-child),
+tbody td {
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+tbody th {
+  text-align: left;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+tbody th,
+tbody td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
 /* == Terminal frame == */
 .term {
   border: 1px solid var(--border);
@@ -343,7 +390,7 @@ figure.diagram figcaption {
   white-space: pre;
 }
 
-/* == Quoted exchange == */
+/* == Quoted exchange (aside) == */
 .aside-thread {
   margin-top: 2.5rem;
 }
