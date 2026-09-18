@@ -34,20 +34,20 @@
 
   <!-- A: split by rows -->
   <rect x="20" y="20" width="68" height="68" rx="6" fill="#1C2216" stroke="#333D28"/>
-  <rect x="20" y="20" width="68" height="68" rx="6" fill="url(#grad-a1)" opacity="0.4"/>
+  <rect x="20" y="20" width="68" height="68" rx="6" fill="url(#grad-a1)" opacity="0.8"/>
   <text x="54" y="54" class="cell-label" fill="#E9ECE3">A1</text>
   <rect x="20" y="92" width="68" height="68" rx="6" fill="#1C2216" stroke="#333D28"/>
-  <rect x="20" y="92" width="68" height="68" rx="6" fill="url(#grad-a2)" opacity="0.4"/>
+  <rect x="20" y="92" width="68" height="68" rx="6" fill="url(#grad-a2)" opacity="0.8"/>
   <text x="54" y="126" class="cell-label" fill="#E9ECE3">A2</text>
 
   <text x="185" y="90" class="op-symbol">&#215;</text>
 
   <!-- B: split by columns (each spans the full height, per \multirow{2} in the source) -->
   <rect x="210" y="20" width="68" height="140" rx="6" fill="#1C2216" stroke="#333D28"/>
-  <rect x="210" y="20" width="68" height="140" rx="6" fill="url(#grad-b1)" opacity="0.4"/>
+  <rect x="210" y="20" width="68" height="140" rx="6" fill="url(#grad-b1)" opacity="0.8"/>
   <text x="244" y="90" class="cell-label" fill="#E9ECE3">B1</text>
   <rect x="282" y="20" width="68" height="140" rx="6" fill="#1C2216" stroke="#333D28"/>
-  <rect x="282" y="20" width="68" height="140" rx="6" fill="url(#grad-b2)" opacity="0.4"/>
+  <rect x="282" y="20" width="68" height="140" rx="6" fill="url(#grad-b2)" opacity="0.8"/>
   <text x="316" y="90" class="cell-label" fill="#E9ECE3">B2</text>
 
   <text x="375" y="90" class="op-symbol">=</text>

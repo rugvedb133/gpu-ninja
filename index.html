@@ -369,11 +369,60 @@
       each other, took longer to get right than the report makes it sound.
     </p>
   </section>
-  
-  <!-- 
-    reflection and footer sections are built next
-   -->
+
+  <section id="reflection" aria-labelledby="reflection-heading">
+    <h2 id="reflection-heading">Reflection</h2>
+    <p class="section-lede">
+      Looking back, the matrix multiplication itself was the easy part — the
+      real lesson was that scaling across devices is mostly a coordination
+      problem, not a compute problem.
+    </p>
+    <p>
+      The results section makes that concrete: the kernel got 98&times;
+      faster, but just standing up four streams and switching device
+      contexts costs more time than a single GPU ever needed to spend
+      getting started. That overhead is the real price of parallelism across
+      separate devices, and it's easy to miss if you only look at compute
+      time.
+    </p>
+    <p>
+      The loop-vs-explicit-code decision taught a smaller, related lesson:
+      four almost-identical blocks of code aren't actually identical once
+      you look closely, and forcing them into a shared abstraction cost more
+      in conditionals than it saved in line count. Sometimes the less clever
+      version is the right one.
+    </p>
+    <p>
+      If I picked this back up, non-square matrices are still the obvious
+      next step — noted as a limitation for a reason, not an oversight. Past
+      that, I'd want to test whether the split has to be a fixed 50/50: with
+      matrices that don't divide evenly, or with more than four devices, a
+      fixed 2&times;2 grid stops being the right shape.
+    </p>
+  </section>
+
 </main>
+
+<footer>
+  <div class="footer-inner">
+    <p>
+      Source for the original CUDA project lived in a private GitHub
+      Classroom repo and isn't published here. This site's own source is on
+      <a href="https://github.com/rugvedb133/gpu-ninja">GitHub</a>.
+    </p>
+
+    <nav aria-label="Further reading">
+      <p class="footer-label">Further reading</p>
+      <ul>
+        <li><a href="https://teaching.danielwong.org/csee217/fall22">CS217/EE217 course page — Daniel Wong, UC Riverside</a></li>
+        <li><a href="https://developer.nvidia.com/blog/unified-memory-cuda-beginners/">Unified Memory for CUDA Beginners — NVIDIA</a></li>
+        <li><a href="https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html">Matrix Multiplication Background — NVIDIA</a></li>
+      </ul>
+    </nav>
+
+    <p><a href="https://rugvedb133.github.io/">&larr; back to portfolio</a></p>
+  </div>
+</footer>
 
 <script src="script.js" defer></script>
 </body>
