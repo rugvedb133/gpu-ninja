@@ -472,6 +472,10 @@ tbody td {
   white-space: pre;
 }
 
+.term-body .typed-cursor {
+  color: var(--brand);
+}
+
 /* == Quoted exchange (aside) == */
 .aside-thread {
   margin-top: 2.5rem;
