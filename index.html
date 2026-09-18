@@ -195,8 +195,71 @@
     </dl>
   </section>
 
+  <section id="approach" aria-labelledby="approach-heading">
+    <h2 id="approach-heading">The approach</h2>
+    <p class="section-lede">
+      Once the plan was to use all four GPUs, the mechanics came down to three
+      things: how the work gets split, how four devices stay busy without
+      blocking each other, and how memory moves between them.
+    </p>
+
+    <h3>Splitting the multiplication</h3>
+    <p>
+      Matrix A gets sliced into two row-blocks (A1, A2); matrix B into two
+      column-blocks (B1, B2). That turns one N&times;N multiplication into four
+      independent, smaller ones — A1&times;B1, A1&times;B2, A2&times;B1, A2&times;B2 —
+      each producing one quadrant of the result matrix C. Four independent
+      sub-problems, four GPUs: <code>cudaSetDevice()</code> sends each one to a
+      different device before its kernel launches.
+    </p>
+
+    <figure class="diagram">
+      <img src="images/block-split.svg" width="560" height="180" alt="Matrix A split into row-blocks A1 and A2, matrix B split into column-blocks B1 and B2. Multiplying them gives four quadrants of result matrix C: C1 = A1×B1 on GPU 0, C2 = A1×B2 on GPU 1, C3 = A2×B1 on GPU 2, C4 = A2×B2 on GPU 3.">
+      <figcaption>How the multiplication splits into four independent pieces</figcaption>
+    </figure>
+
+    <h3>Keeping four GPUs busy at once</h3>
+    <p>
+      Dispatching four kernels to four devices only helps if they can actually
+      run concurrently instead of queuing up behind each other. CUDA streams
+      handle that — each GPU gets its own stream, so the host can launch all
+      four kernels back-to-back without waiting for one to finish before
+      starting the next.
+    </p>
+
+    <h3>Unified Memory</h3>
+    <p>
+      The foundations track flagged shared memory as the obvious next
+      optimization after Assignment&nbsp;1. This project reached for a different
+      tool instead: Unified Memory (<code>cudaMallocManaged</code>), which lets
+      the CPU and every GPU address the same memory without an explicit
+      host-to-device copy for each buffer. It trades away some of the
+      fine-grained control shared memory would give you for a lot less
+      bookkeeping across four devices at once — a reasonable trade when the
+      thing you're debugging is "did I even target the right GPU," not "is
+      this kernel memory-bound."
+    </p>
+
+    <h3>Loops vs. writing it out</h3>
+    <p>
+      The four device-dispatch blocks are nearly identical — different device
+      ID, different source and destination pointers, same overall shape. The
+      obvious move is a loop. In practice, the four blocks didn't stay
+      identical enough: stream assignment, host-side offsets, and which
+      quadrant fed which output diverged just enough that a loop would have
+      needed its own set of conditionals to handle each case anyway.
+    </p>
+    <blockquote class="pull-quote">
+      <p>
+        In the end, it was easier to write each calculation directly without
+        using a loop. While this increases the size of the code, it reduces
+        the programming complexity.
+      </p>
+    </blockquote>
+  </section>
+
   <!-- 
-      approach, results, limitations, and reflection
+      results, limitations, and reflection
        sections are built next, one at a time. 
    -->
 </main>

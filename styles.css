@@ -183,6 +183,70 @@ section h2 {
   margin: 0 0 2rem;
 }
 
+section h3 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin: 2.25rem 0 0.75rem;
+}
+
+section h3:first-of-type {
+  margin-top: 1.5rem;
+}
+
+section p code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--gpu0);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+
+.pull-quote {
+  border-left: 3px solid var(--brand);
+  margin: 1.75rem 0;
+  padding: 0.2rem 0 0.2rem 1.25rem;
+}
+
+.pull-quote p {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------
+   Diagrams
+   --------------------------------------------------------------- */
+figure.diagram {
+  margin: 1.75rem 0;
+  padding: 1.5rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+figure.diagram img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+figure.diagram figcaption {
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 /* == Foundations (assignment cards) == */
 .foundations-list {
   list-style: none;
