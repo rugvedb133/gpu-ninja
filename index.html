@@ -334,10 +334,44 @@
       </div>
     </div>
   </section>
+
+  <section id="limitations" aria-labelledby="limitations-heading">
+    <h2 id="limitations-heading">Limitations</h2>
+    <p class="section-lede">
+      Not everything made it into the final version — some by choice, some by
+      deadline.
+    </p>
+
+    <ul class="limitations-list">
+      <li>
+        <strong>Square matrices only.</strong> The program only handles
+        square matrices — A<sub>mm</sub>&times;B<sub>mm</sub>=C<sub>mm</sub>.
+        Supporting non-square shapes means more careful block-splitting logic
+        and, realistically, more GPUs to keep the split balanced.
+      </li>
+      <li>
+        <strong>Fixed 50/50 split.</strong> Rows and columns are always
+        divided exactly in half. There's no logic yet to rebalance for odd
+        dimensions, or to scale past this 2&times;2 grid of GPUs.
+      </li>
+      <li>
+        <strong>Non-square support was attempted, not finished.</strong>
+        Between the time left in the project and Bender being a shared
+        server with its own limits, I wasn't able to validate it properly
+        before the deadline.
+      </li>
+    </ul>
+
+    <p>
+      Streams across four devices also took real trial and error. Launching
+      a kernel on a stream is one thing; keeping four separate device
+      contexts and their streams straight at once, without them stepping on
+      each other, took longer to get right than the report makes it sound.
+    </p>
+  </section>
   
   <!-- 
-      limitations, and reflection
-       sections are built next, one at a time. 
+    reflection and footer sections are built next
    -->
 </main>
 

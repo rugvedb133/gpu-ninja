@@ -304,6 +304,40 @@ figure.diagram figcaption {
   margin: 0 0 2.5rem;
 }
 
+/* == Limitations == */
+.limitations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.limitations-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.limitations-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.limitations-list li strong {
+  color: var(--text-primary);
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+
 /* == Data table == */
 table {
   width: 100%;
