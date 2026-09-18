@@ -56,4 +56,36 @@ function typeInto(el, text) {
   });
 }
 
+// Lightbox: one shared <dialog>, filled in from whichever trigger was clicked. 
+// showModal() handles focus trapping, Escape-to-close, and returning focus to the trigger on close,
+// no manual work needed for any of that.
+function setUpLightbox() {
+  const dialog = document.getElementById('lightbox');
+  if (!dialog) return;
+
+  const dialogImg = document.getElementById('lightbox-img');
+  const dialogCaption = document.getElementById('lightbox-caption');
+  const closeBtn = dialog.querySelector('.lightbox-close');
+
+  document.querySelectorAll('.lightbox-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const img = trigger.querySelector('img');
+      const figcaption = trigger.closest('figure')?.querySelector('figcaption');
+      dialogImg.src = img.src;
+      dialogImg.alt = img.alt;
+      dialogCaption.textContent = figcaption ? figcaption.textContent : '';
+      dialog.showModal();
+    });
+  });
+
+  closeBtn.addEventListener('click', () => dialog.close());
+
+  // A click that lands on the dialog element itself (not a descendant) means it landed on the backdrop area;
+  // close on that, same as clicking outside a lightbox normally would.
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', setUpTextAssets);
+document.addEventListener('DOMContentLoaded', setUpLightbox);

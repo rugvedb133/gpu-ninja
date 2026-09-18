@@ -214,7 +214,10 @@
     </p>
 
     <figure class="diagram">
+      <button type="button" class="lightbox-trigger">
+        <span class="visually-hidden">View larger: </span>
       <img src="images/block-split.svg" width="560" height="180" alt="Matrix A split into row-blocks A1 and A2, matrix B split into column-blocks B1 and B2. Multiplying them gives four quadrants of result matrix C: C1 = A1×B1 on GPU 0, C2 = A1×B2 on GPU 1, C3 = A2×B1 on GPU 2, C4 = A2×B2 on GPU 3.">
+      </button>
       <figcaption>How the multiplication splits into four independent pieces</figcaption>
     </figure>
 
@@ -316,7 +319,10 @@
     </p>
 
     <figure class="diagram">
+      <button type="button" class="lightbox-trigger">
+        <span class="visually-hidden">View larger: </span>
       <img src="images/results-chart.svg" width="670" height="380" alt="Bar chart of the same five phases, single GPU vs multi-GPU. Each row is scaled to its own maximum since the phases span very different time scales. Setting up the problem: single GPU 0.028903s, multi-GPU 0.159160s (multi-GPU 5.5x slower). Allocating device variables: single GPU 0.191964s, multi-GPU 0.108678s (multi-GPU 1.8x faster). Copying host to device: single GPU 0.002340s, multi-GPU 0.001864s (multi-GPU 1.3x faster). Executing kernel: single GPU 0.004720s, multi-GPU 0.000048s (multi-GPU 98.3x faster). Copying device to host: single GPU 0.003046s, multi-GPU 0.001845s (multi-GPU 1.7x faster).">
+      </button>
       <figcaption>Same five phases, bar for bar — each row scaled to its own maximum</figcaption>
     </figure>
 
@@ -428,5 +434,11 @@
 
 <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js" defer></script>
 <script src="script.js" defer></script>
+<dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-caption">
+  <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+  <p id="lightbox-caption"></p>
+</dialog>
+
 </body>
 </html>
