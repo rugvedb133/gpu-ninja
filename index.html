@@ -13,7 +13,7 @@
 <meta property="og:title" content="Matrix Multiplication on Multiple GPUs | Reál Matrix">
 <meta property="og:description" content="Scaling tiled matrix multiplication across four NVIDIA GPUs with CUDA streams and Unified Memory — a CS217/EE217 capstone at UC Riverside.">
 <meta property="og:url" content="https://rugvedb133.github.io/gpu-ninja/">
-<meta property="og:image" content="https://rugvedb133.github.io/gpu-ninja/images/og-image.png">
+<meta property="og:image" content="https://rugvedb133.github.io/gpu-ninja/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Matrix Multiplication on Multiple GPUs — GPUninja, a four-color tile mark next to the project title.">
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Matrix Multiplication on Multiple GPUs | Reál Matrix">
 <meta name="twitter:description" content="Scaling tiled matrix multiplication across four NVIDIA GPUs with CUDA streams and Unified Memory — a CS217/EE217 capstone at UC Riverside.">
-<meta name="twitter:image" content="https://rugvedb133.github.io/gpu-ninja/images/og-image.png">
+<meta name="twitter:image" content="https://rugvedb133.github.io/gpu-ninja/assets/og-image.png">
 
 <!-- Icons -->
 <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="any">
@@ -174,7 +174,7 @@
         <div class="path">bender.engr.ucr.edu</div>
       </div>
       <div class="term-body">
-        <pre id="banner-pre" data-asset="text/bender-banner.txt">Loading banner…</pre>
+        <pre id="banner-pre" data-asset="assets/bender-banner.txt">Loading banner…</pre>
       </div>
     </div>
     <button type="button" class="lightbox-trigger term-expand-btn" data-lightbox-target="banner-pre">
@@ -218,7 +218,7 @@
     <figure class="diagram">
       <button type="button" class="lightbox-trigger" data-lightbox-target="block-split-img">
         <span class="visually-hidden">View larger: </span>
-        <img id="block-split-img" src="images/block-split.svg" width="560" height="180" alt="Matrix A split into row-blocks A1 and A2, matrix B split into column-blocks B1 and B2. Multiplying them gives four quadrants of result matrix C: C1 = A1×B1 on GPU 0, C2 = A1×B2 on GPU 1, C3 = A2×B1 on GPU 2, C4 = A2×B2 on GPU 3.">
+        <img id="block-split-img" src="assets/block-split.svg" width="560" height="180" alt="Matrix A split into row-blocks A1 and A2, matrix B split into column-blocks B1 and B2. Multiplying them gives four quadrants of result matrix C: C1 = A1×B1 on GPU 0, C2 = A1×B2 on GPU 1, C3 = A2×B1 on GPU 2, C4 = A2×B2 on GPU 3.">
       </button>
       <figcaption>How the multiplication splits into four independent pieces</figcaption>
     </figure>
@@ -327,7 +327,7 @@
     <figure class="diagram">
       <button type="button" class="lightbox-trigger" data-lightbox-target="results-chart-img">
         <span class="visually-hidden">View larger: </span>
-        <img id="results-chart-img" src="images/results-chart.svg" width="670" height="380" alt="Bar chart of the same five phases, single GPU vs multi-GPU. Each row is scaled to its own maximum since the phases span very different time scales. Setting up the problem: single GPU 0.028903s, multi-GPU 0.159160s (multi-GPU 5.5x slower). Allocating device variables: single GPU 0.191964s, multi-GPU 0.108678s (multi-GPU 1.8x faster). Copying host to device: single GPU 0.002340s, multi-GPU 0.001864s (multi-GPU 1.3x faster). Executing kernel: single GPU 0.004720s, multi-GPU 0.000048s (multi-GPU 98.3x faster). Copying device to host: single GPU 0.003046s, multi-GPU 0.001845s (multi-GPU 1.7x faster).">
+        <img id="results-chart-img" src="assets/results-chart.svg" width="670" height="380" alt="Bar chart of the same five phases, single GPU vs multi-GPU. Each row is scaled to its own maximum since the phases span very different time scales. Setting up the problem: single GPU 0.028903s, multi-GPU 0.159160s (multi-GPU 5.5x slower). Allocating device variables: single GPU 0.191964s, multi-GPU 0.108678s (multi-GPU 1.8x faster). Copying host to device: single GPU 0.002340s, multi-GPU 0.001864s (multi-GPU 1.3x faster). Executing kernel: single GPU 0.004720s, multi-GPU 0.000048s (multi-GPU 98.3x faster). Copying device to host: single GPU 0.003046s, multi-GPU 0.001845s (multi-GPU 1.7x faster).">
       </button>
       <figcaption>Same five phases, bar for bar — each row scaled to its own maximum</figcaption>
     </figure>
@@ -344,7 +344,7 @@
         <div class="path">rugvedb133@bender: ~/final-project-gpuninja</div>
       </div>
       <div class="term-body">
-        <pre id="terminal-output-pre" data-asset="text/terminal-output-1000.txt">Loading terminal output…</pre>
+        <pre id="terminal-output-pre" data-asset="assets/terminal-output.txt">Loading terminal output…</pre>
       </div>
     </div>
     <button type="button" class="lightbox-trigger term-expand-btn" data-lightbox-target="terminal-output-pre">

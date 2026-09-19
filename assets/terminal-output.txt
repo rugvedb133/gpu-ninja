@@ -1,4 +1,4 @@
-$ ./multiply
+<span class="term-prompt">$</span> <span class="term-command">./multiply</span>
 
 Number of available GPUs: 4
 

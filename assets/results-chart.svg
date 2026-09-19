@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 380" width="670" height="380" role="img" aria-labelledby="chart-title chart-desc" xmlns:c2pa="http://c2pa.org/manifest">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="19.2 16.8 609.29 305.2" width="670" height="380" role="img" aria-labelledby="chart-title chart-desc">
 <title id="chart-title">Execution time by phase, single GPU vs. four GPUs</title>
 <desc id="chart-desc">Bars in each row are scaled to that row's own maximum, since phases span very different time scales. Setting up the problem: single GPU 0.028903 s, multi-GPU 0.159160 s, multi-GPU is 5.5x slower. Allocating device variables: single GPU 0.191964 s, multi-GPU 0.108678 s, multi-GPU is 1.8x faster. Copying host → device(s): single GPU 0.002340 s, multi-GPU 0.001864 s, multi-GPU is 1.3x faster. Executing kernel(s): single GPU 0.004720 s, multi-GPU 0.000048 s, multi-GPU is 98.3x faster. Copying device(s) → host: single GPU 0.003046 s, multi-GPU 0.001845 s, multi-GPU is 1.7x faster.</desc>
 <rect width="670" height="380" fill="none"/>
