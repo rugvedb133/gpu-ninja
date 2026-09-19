@@ -49,8 +49,8 @@ function typeInto(el, text) {
   const guarded = '\u200B' + text + '\u200B';
   new Typed(el, {
     strings: [guarded],
-    typeSpeed: 4,
-    contentType: 'null', // plain text — nothing here needs HTML parsing
+    typeSpeed: 1,
+    contentType: 'html', // plain text — nothing here needs HTML parsing
     showCursor: true,
     cursorChar: '|',
   });

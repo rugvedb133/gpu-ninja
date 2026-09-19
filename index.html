@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrix Multiplication on Multiple GPUs — a.k.a. Reál Matrix</title>
+<title>Matrix Multiplication on Multiple GPUs | a.k.a. Reál Matrix</title>
 <meta name="description" content="Portfolio write-up of a CS217/EE217 capstone project at UC Riverside — scaling tiled matrix multiplication across four NVIDIA GPUs with CUDA streams and Unified Memory.">
 <meta name="theme-color" content="#161917">
 <link rel="canonical" href="https://rugvedb133.github.io/gpu-ninja/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Matrix Multiplication on Multiple GPUs">
+<meta property="og:title" content="Matrix Multiplication on Multiple GPUs | Reál Matrix">
 <meta property="og:description" content="Scaling tiled matrix multiplication across four NVIDIA GPUs with CUDA streams and Unified Memory — a CS217/EE217 capstone at UC Riverside.">
 <meta property="og:url" content="https://rugvedb133.github.io/gpu-ninja/">
 <meta property="og:image" content="https://rugvedb133.github.io/gpu-ninja/images/og-image.png">
@@ -20,7 +20,7 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Matrix Multiplication on Multiple GPUs">
+<meta name="twitter:title" content="Matrix Multiplication on Multiple GPUs | Reál Matrix">
 <meta name="twitter:description" content="Scaling tiled matrix multiplication across four NVIDIA GPUs with CUDA streams and Unified Memory — a CS217/EE217 capstone at UC Riverside.">
 <meta name="twitter:image" content="https://rugvedb133.github.io/gpu-ninja/images/og-image.png">
 
@@ -42,10 +42,10 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="kicker">CS217 / EE217 &middot; Fall 2022 &middot; UC Riverside</p>
-    <h1>Matrix multiplication, spread across four GPUs</h1>
+    <p class="kicker">CSEE217 &middot; Fall 2022 &middot; UC Riverside</p>
+    <h1 title="Reál Matrix (get it?)">Matrix multiplication, spread across four GPUs</h1>
     <p class="lede">
-      A capstone project for GPU Architecture and Parallel Programming — splitting one matrix
+      A capstone project for GPU Architecture and Parallel Programming: splitting one matrix
       multiplication into four independent pieces and handing each to its own NVIDIA GPU.
     </p>
 
@@ -71,7 +71,7 @@
   <section id="foundations" aria-labelledby="foundations-heading">
     <h2 id="foundations-heading">Before the capstone</h2>
     <p class="section-lede">
-      Four assignments led up to this project — each one a small, contained lesson
+      Four assignments led up to this project, each one a small, contained lesson
       that fed into the final build.
     </p>
 
@@ -81,7 +81,7 @@
         <h3>Matrix Addition</h3>
         <p>
           The first kernel: element-wise addition on two 2D matrices. At a 256-thread
-          block size, a 1000&times;1000 matrix needs roughly 63&times;63 blocks — and the
+          block size, a 1000&times;1000 matrix needs roughly 63&times;63 blocks, and the
           last block along each edge isn't fully populated, so a bounds check keeps idle
           threads from writing past the array. Also the assignment that first put shared
           memory on my radar as an optimization lever.
@@ -104,11 +104,11 @@
         <span class="foundation-index">03</span>
         <h3>Tiled Matrix Multiplication</h3>
         <p>
-          Single-GPU tiled matmul — the direct ancestor of the capstone. Sweeping the
+          Single-GPU tiled matmul: the direct ancestor of the capstone. Sweeping the
           tile size turned up a counter-intuitive result: 32&times;32 tiles cut global
           memory accesses the most, but ran slowest overall. 16&times;16 made more trips
           to memory and still won, because it balanced memory traffic against how much
-          work — and how many threads — each block had to juggle.
+          work and how many threads each block had to juggle.
         </p>
       </li>
 
@@ -117,7 +117,7 @@
         <h3>Histogram</h3>
         <p>
           Building a 1024-bin histogram without every thread colliding on the same
-          global counters — each block gets a private copy of the histogram,
+          global counters: each block gets a private copy of the histogram,
           accumulates locally with atomics, then merges into the shared result at
           the end.
         </p>
@@ -126,18 +126,18 @@
 
     <p class="foundations-note">
       Assignment 1 flagged shared memory as the obvious next optimization. The capstone
-      went a different way — Unified Memory instead — for reasons that show up later
+      went a different way instead, using Unified Memory, for reasons that are explained later
       in this page.
     </p>
 
     <aside class="aside-thread" aria-label="A memorable exchange from the course">
       <p class="aside-intro">One more thing from that semester, still living in my head rent-free:</p>
       <div class="thread">
-        <div class="thread-msg" style="margin-left:0px;border-left:2px solid var(--border);"><span class="who student">Student</span><span class="msg">Is there any limit on the number of commits I can make to the Github repository? I'm not talking about 100–200 commits for every small change, but maybe 15–20. Would there be any difference if I first pushed all my changes to a new branch and after all testing and stuff, just merged my branch to main for final submission?</span></div>
-        <div class="thread-msg" style="margin-left:16px;border-left:2px solid var(--border);"><span class="who ta">TA</span><span class="msg">No limit on the number of commits. No difference as long as you merge and have the code in main.</span></div>
-        <div class="thread-msg" style="margin-left:32px;border-left:2px solid var(--border);"><span class="who student">Student</span><span class="msg">But which commit would the online tests run on? I don't want to crash the server by making multiple commits if every commit (even on a separate branch) is going to start the tests and strain the server.</span></div>
-        <div class="thread-msg" style="margin-left:48px;border-left:2px solid var(--border);"><span class="who ta">TA</span><span class="msg">Every commit will be tested eventually but don't worry about 10–15 commits. Hopefully, the server will make it.</span></div>
-        <div class="thread-msg" style="margin-left:64px;border-left:2px solid var(--brand);"><span class="who instructor">Instructor</span><span class="msg">I pointed a fan at the server, so it should be fine.</span></div>
+        <div class="thread-msg" style="--n: 1;"><span class="who student">Student</span><span class="msg">Will it be okay if I make multiple commits, to code on my laptop and then test this on the lab server, syncing directly via Git? Should I make a different branch instead?</span></div>
+        <div class="thread-msg" style="--n: 2;"><span class="who ta">TA</span><span class="msg">No limit on the number of commits. No issues with branches as long as you merge and have the code in main before submission.</span></div>
+        <div class="thread-msg" style="--n: 3;"><span class="who student">Student</span><span class="msg">Which commit would the validation tests run on? I don't want to crash the server if every commit (even on a separate branch) will strain the server with a new test run.</span></div>
+        <div class="thread-msg" style="--n: 4;"><span class="who ta">TA</span><span class="msg">Every commit will be checked eventually but don't worry about ~10–15 commits. Hopefully, the server will make it.</span></div>
+        <div class="thread-msg" style="--n: 5;"><span class="who instructor">Instructor</span><span class="msg">I pointed a fan at the server, so it should be fine.</span></div>
       </div>
     </aside>
 
@@ -146,39 +146,38 @@
   <section id="problem" aria-labelledby="problem-heading">
     <h2 id="problem-heading">The problem</h2>
     <p class="section-lede">
-      Matrix multiplication is embarrassingly parallel — every output element is an
-      independent dot product — which makes it a natural GPU workload. The real
+      Matrix multiplication is embarrassingly parallel: every output element is an
+      independent dot product, which makes it a natural GPU workload. The real
       question this project set out to answer was less "can a GPU do this faster
       than a CPU" (yes, decisively) and more: does splitting the work across
       <em>multiple</em> GPUs actually beat running it on just one?
     </p>
+
+    <h3>One important detail</h3>
     <p>
-      One housekeeping detail baked into the algorithm from the start: matrix
-      multiplication doesn't commute, so A&times;B and B&times;A aren't the same
-      computation — which matters the moment you start deciding which piece goes to
-      which device.
+      Matrix multiplication doesn't commute, so A&times;B and B&times;A aren't the same computation, 
+      which matters the moment you start deciding which piece goes to which device.
     </p>
   </section>
 
   <section id="hardware" aria-labelledby="hardware-heading">
     <h2 id="hardware-heading">Meet Bender</h2>
     <p class="section-lede">
-      Everything ran on UCR's shared GPU cluster node — "Bender" to anyone who's SSH'd
-      in, complete with its own ASCII-art welcome banner. Four RTX&nbsp;2070s meant four
-      independent multiplication targets to split the work across; the dual Xeons and
-      256GB of host RAM meant the CPU side was never going to be the bottleneck.
+      Everything ran on UCR ECE dept's shared GPU cluster node, "Bender".
+      Four RTX&nbsp;2070s meant four independent multiplication targets to split the work across; 
+      the dual Xeons and 256GB of host RAM meant the CPU side was never going to be the bottleneck.
     </p>
 
     <div class="term" aria-hidden="true">
       <div class="term-bar">
         <div class="dot close"></div><div class="dot min"></div><div class="dot zoom"></div>
-        <div class="path">rbhis001@bender.engr.ucr.edu</div>
+        <div class="path">bender.engr.ucr.edu</div>
       </div>
       <div class="term-body">
         <pre id="banner-pre" data-asset="text/bender-banner.txt">Loading banner…</pre>
       </div>
     </div>
-    <button type="button" class="term-expand-btn" data-lightbox-target="banner-pre">
+    <button type="button" class="lightbox-trigger term-expand-btn" data-lightbox-target="banner-pre">
       <span aria-hidden="true">&#10530;</span> View banner larger
     </button>
 
@@ -210,7 +209,7 @@
     <p>
       Matrix A gets sliced into two row-blocks (A1, A2); matrix B into two
       column-blocks (B1, B2). That turns one N&times;N multiplication into four
-      independent, smaller ones — A1&times;B1, A1&times;B2, A2&times;B1, A2&times;B2 —
+      independent, smaller ones (A1&times;B1, A1&times;B2, A2&times;B1, and A2&times;B2)
       each producing one quadrant of the result matrix C. Four independent
       sub-problems, four GPUs: <code>cudaSetDevice()</code> sends each one to a
       different device before its kernel launches.
@@ -228,7 +227,7 @@
     <p>
       Dispatching four kernels to four devices only helps if they can actually
       run concurrently instead of queuing up behind each other. CUDA streams
-      handle that — each GPU gets its own stream, so the host can launch all
+      handle that by giving each GPU its own stream, so the host can launch all
       four kernels back-to-back without waiting for one to finish before
       starting the next.
     </p>
@@ -241,16 +240,16 @@
       the CPU and every GPU address the same memory without an explicit
       host-to-device copy for each buffer. It trades away some of the
       fine-grained control shared memory would give you for a lot less
-      bookkeeping across four devices at once — a reasonable trade when the
-      thing you're debugging is "did I even target the right GPU," not "is
+      bookkeeping across four devices at once; a reasonable trade when the
+      thing you're debugging is "did I even target the right GPU", not "is
       this kernel memory-bound."
     </p>
 
     <h3>Loops vs. writing it out</h3>
     <p>
-      The four device-dispatch blocks are nearly identical — different device
-      ID, different source and destination pointers, same overall shape. The
-      obvious move is a loop. In practice, the four blocks didn't stay
+      The four device-dispatch blocks are nearly identical, with different device
+      ID, different source and destination pointers, but same overall shape. The
+      obvious move is a loop. In practice however, the four blocks didn't stay
       identical enough: stream assignment, host-side offsets, and which
       quadrant fed which output diverged just enough that a loop would have
       needed its own set of conditionals to handle each case anyway.
@@ -267,7 +266,7 @@
   <section id="results" aria-labelledby="results-heading">
     <h2 id="results-heading">Results</h2>
     <p class="section-lede">
-      Table I from the report, benchmarked at the default 1000&times;1000 size —
+      Comparison of execution times, benchmarked at the default 1000&times;1000 size:
       five phases, single GPU against all four.
     </p>
 
@@ -320,9 +319,9 @@
       0.000048s, roughly a 98&times; drop, since each GPU now computes a quarter
       of the work at the same time instead of one GPU computing all of it in
       sequence. The real cost shows up first: <em>setting up the problem</em>
-      got noticeably slower under multi-GPU — coordinating four streams and
+      got noticeably slower under multi-GPU, coordinating four streams and
       switching device contexts isn't free. Even counting that overhead in,
-      the report's conclusion still stands: multi-GPU comes out ahead overall.
+      the original conclusion still stands: multi-GPU comes out ahead overall.
     </p>
 
     <figure class="diagram">
@@ -335,20 +334,20 @@
 
     <h3>The actual run</h3>
     <p>
-      And here's an actual run backing the table above — the default
+      And here's the actual run of the default
       1000&times;1000 case, straight from the terminal.
     </p>
 
     <div class="term">
       <div class="term-bar">
         <div class="dot close"></div><div class="dot min"></div><div class="dot zoom"></div>
-        <div class="path">rbhis001@bender:~/final-project-gpuninja</div>
+        <div class="path">rugvedb133@bender: ~/final-project-gpuninja</div>
       </div>
       <div class="term-body">
         <pre id="terminal-output-pre" data-asset="text/terminal-output-1000.txt">Loading terminal output…</pre>
       </div>
     </div>
-    <button type="button" class="term-expand-btn" data-lightbox-target="terminal-output-pre">
+    <button type="button" class="lightbox-trigger term-expand-btn" data-lightbox-target="terminal-output-pre">
       <span aria-hidden="true">&#10530;</span> View output larger
     </button>
   </section>
@@ -356,14 +355,13 @@
   <section id="limitations" aria-labelledby="limitations-heading">
     <h2 id="limitations-heading">Limitations</h2>
     <p class="section-lede">
-      Not everything made it into the final version — some by choice, some by
-      deadline.
+      Not everything made it into the final version, some by choice, some by deadline.
     </p>
 
     <ul class="limitations-list">
       <li>
         <strong>Square matrices only.</strong> The program only handles
-        square matrices — A<sub>mm</sub>&times;B<sub>mm</sub>=C<sub>mm</sub>.
+        square matrices: A<sub>mm</sub>&times;B<sub>mm</sub>=C<sub>mm</sub>.
         Supporting non-square shapes means more careful block-splitting logic
         and, realistically, more GPUs to keep the split balanced.
       </li>
@@ -384,14 +382,14 @@
       Streams across four devices also took real trial and error. Launching
       a kernel on a stream is one thing; keeping four separate device
       contexts and their streams straight at once, without them stepping on
-      each other, took longer to get right than the report makes it sound.
+      each other, took longer to get right than originally thought.
     </p>
   </section>
 
   <section id="reflection" aria-labelledby="reflection-heading">
     <h2 id="reflection-heading">Reflection</h2>
     <p class="section-lede">
-      Looking back, the matrix multiplication itself was the easy part — the
+      Looking back, the matrix multiplication itself was the easy part. The
       real lesson was that scaling across devices is mostly a coordination
       problem, not a compute problem.
     </p>
@@ -400,8 +398,7 @@
       faster, but just standing up four streams and switching device
       contexts costs more time than a single GPU ever needed to spend
       getting started. That overhead is the real price of parallelism across
-      separate devices, and it's easy to miss if you only look at compute
-      time.
+      separate devices, and it's easy to miss if only looking at compute time.
     </p>
     <p>
       The loop-vs-explicit-code decision taught a smaller, related lesson:
@@ -411,11 +408,10 @@
       version is the right one.
     </p>
     <p>
-      If I picked this back up, non-square matrices are still the obvious
-      next step — noted as a limitation for a reason, not an oversight. Past
-      that, I'd want to test whether the split has to be a fixed 50/50: with
-      matrices that don't divide evenly, or with more than four devices, a
-      fixed 2&times;2 grid stops being the right shape.
+      If I picked this back up, non-square matrices are still the obvious next step.
+      Past that, I'd want to test whether the split has to be a fixed 50/50: 
+      with matrices that don't divide evenly, or with more than four devices, 
+      a fixed 2&times;2 grid stops being the right shape.
     </p>
   </section>
 
@@ -423,22 +419,16 @@
 
 <footer>
   <div class="footer-inner">
-    <p>
-      Source for the original CUDA project lived in a private GitHub
-      Classroom repo and isn't published here. This site's own source is on
-      <a href="https://github.com/rugvedb133/gpu-ninja">GitHub</a>.
-    </p>
-
     <nav aria-label="Further reading">
       <p class="footer-label">Further reading</p>
       <ul>
-        <li><a href="https://teaching.danielwong.org/csee217/fall22">CS217/EE217 course page — Daniel Wong, UC Riverside</a></li>
+        <li><a href="https://teaching.danielwong.org/csee217/fall22">CSEE217 course page</a> by <a href="https://profiles.ucr.edu/app/home/profile/danwong">Prof. Daniel Wong</a>, UC Riverside</li>
         <li><a href="https://developer.nvidia.com/blog/unified-memory-cuda-beginners/">Unified Memory for CUDA Beginners — NVIDIA</a></li>
         <li><a href="https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html">Matrix Multiplication Background — NVIDIA</a></li>
       </ul>
     </nav>
 
-    <p><a href="https://rugvedb133.github.io/">&larr; back to portfolio</a></p>
+    <p><a href="https://rugvedb133.github.io/">&larr; Back to Portfolio</a> &middot; <a href="https://github.com/rugvedb133/gpu-ninja">View this site's repo</a></p>
   </div>
 </footer>
 
