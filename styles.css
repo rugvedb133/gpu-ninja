@@ -251,7 +251,7 @@ figure.diagram {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 8px;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 figure.diagram img {
@@ -280,20 +280,22 @@ figure.diagram figcaption {
   font: inherit;
 }
 
+.term-expand-btn,
 .table-expand-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.4rem;
   width: auto;
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.4rem 0.8rem;
-  margin: -0.5rem 0 1.75rem;
+  margin: 0.5rem auto 0.5rem;
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 0.8rem;
 }
 
+.term-expand-btn:hover,
 .table-expand-btn:hover {
   border-color: var(--brand);
   color: var(--text-primary);
@@ -322,12 +324,21 @@ dialog.lightbox img {
 }
 
 #lightbox-content {
-  overflow-x: auto;
+  overflow: auto;
 }
 
 #lightbox-content table {
   margin: 0;
   font-size: 1.05rem;
+}
+
+#lightbox-content pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  white-space: pre;
 }
 
 dialog.lightbox #lightbox-caption {
@@ -518,7 +529,7 @@ tbody td {
   border-radius: 8px;
   overflow: hidden;
   background: #101408;
-  margin: 1.75rem 0;
+  margin: 1rem 0;
 }
 
 .term-bar {
@@ -549,7 +560,7 @@ tbody td {
 
 .term-body {
   padding: 16px 18px;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 .term-body pre {

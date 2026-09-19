@@ -56,13 +56,11 @@ function typeInto(el, text) {
   });
 }
 
-// Lightbox: one shared <dialog>, filled in from whichever trigger was clicked. 
-// showModal() handles focus trapping, Escape-to-close, and returning focus to the trigger on close,
-// no manual work needed for any of that.
-// A trigger either wraps an <img> (the diagrams), or points at another
-// element on the page via [data-lightbox-target] (the results table); 
-// in that case the real element gets cloned in as-is, semantics and all,
-// rather than being redrawn as an image.
+// Lightbox: one shared <dialog>, filled in by cloning whatever element its trigger points at
+// (via [data-lightbox-target]): an image, a table, or a terminal block.
+// Same code path regardless of content type.
+// showModal() handles focus trapping, Escape-to-close, and returning focus on close,
+// without any additional commands.
 function setUpLightbox() {
   const dialog = document.getElementById('lightbox');
   if (!dialog) return;
@@ -71,28 +69,35 @@ function setUpLightbox() {
   const captionEl = document.getElementById('lightbox-caption');
   const closeBtn = dialog.querySelector('.lightbox-close');
 
-  document.querySelectorAll('.lightbox-trigger').forEach((trigger) => {
+  document.querySelectorAll('[data-lightbox-target]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
-      content.innerHTML = '';
-      let caption = '';
+      const source = document.getElementById(trigger.dataset.lightboxTarget);
+      if (!source) return;
 
-      const targetId = trigger.dataset.lightboxTarget;
-      if (targetId) {
-        const source = document.getElementById(targetId);
-        if (!source) return;
-        content.appendChild(source.cloneNode(true));
-        caption = source.querySelector('caption')?.textContent || '';
-      } else {
-        const img = trigger.querySelector('img');
-        if (!img) return;
-        const clone = document.createElement('img');
-        clone.src = img.src;
-        clone.alt = img.alt;
-        content.appendChild(clone);
-        caption = trigger.closest('figure')?.querySelector('figcaption')?.textContent || '';
+      const clone = source.cloneNode(true);
+
+      // Terminal blocks type their content in over time (and only once scrolled into view);
+      // Clone should show the full text regardless of how much has actually been typed on the live page so far.
+      if (source.dataset.fullText) {
+        clone.textContent = source.dataset.fullText;
       }
 
-      captionEl.textContent = caption;
+      // Decorative content (the Bender banner) stays decorative when enlarged too;
+      // carrying that down from the source's own ancestry.
+      if (source.closest('[aria-hidden="true"]')) {
+        clone.setAttribute('aria-hidden', 'true');
+      }
+
+      content.innerHTML = '';
+      content.appendChild(clone);
+
+      // Caption lives inside the source itself (a table's <caption>) 
+      // or beside it (a figure's <figcaption>) depending on content type;
+      // the only spot left with a type-specific check.
+      const tableCaption = clone.querySelector?.('caption');
+      const figcaption = trigger.closest('figure')?.querySelector('figcaption');
+      captionEl.textContent = (tableCaption || figcaption)?.textContent || '';
+
       dialog.showModal();
     });
   });
