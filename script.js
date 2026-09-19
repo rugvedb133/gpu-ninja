@@ -111,7 +111,33 @@ function setUpLightbox() {
   });
 }
 
+// Prefer native MathML (<math> renders directly, no library needed);
+// only reach for a CDN fallback if the browser can't actually lay it out.
+// The standard feature-detection trick: an <mspace> with an explicit height
+// only renders at that height if MathML is genuinely supported;
+// browsers that don't understand it fall back to unstyled inline HTML, 
+// and the element measures very differently.
+function supportsMathML() {
+  const probe = document.createElement('div');
+  probe.style.cssText = 'position:absolute;visibility:hidden;';
+  probe.innerHTML = '<math><mspace height="23px" width="77px"></mspace></math>';
+  document.body.appendChild(probe);
+  const box = probe.firstChild.firstChild.getBoundingClientRect();
+  probe.remove();
+  return Math.abs(box.height - 23) <= 1;
+}
+
+function setUpMath() {
+  if (!document.querySelector('math')) return;
+  if (supportsMathML()) return; // browser supports MathML, no extra requirements
+
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/mml-chtml.js';
+  document.head.appendChild(script);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   setUpTextAssets();
   setUpLightbox();
+  setUpMath();
 });
