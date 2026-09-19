@@ -153,6 +153,140 @@
       <em>multiple</em> GPUs actually beat running it on just one?
     </p>
 
+    <figure class="diagram">
+      <math display="block" id="matmul-equation" class="equation">
+        <munder>
+          <munder>
+            <!-- First Matrix: A -->
+            <mrow>
+              <mo>[</mo>
+              <mtable>
+                <mtr>
+                  <mtd><msub><mi>a</mi><mn>11</mn></msub></mtd>
+                  <mtd><msub><mi>a</mi><mn>12</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>a</mi><mn>1n</mn></msub></mtd>
+                </mtr>
+                <mtr>
+                  <mtd><msub><mi>a</mi><mn>21</mn></msub></mtd>
+                  <mtd><msub><mi>a</mi><mn>22</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>a</mi><mn>2n</mn></msub></mtd>
+                </mtr>
+                <mtr>
+                  <mtd>&vellip;</mtd>
+                  <mtd>&vellip;</mtd>
+                  <mtd>&#8945;</mtd>
+                  <mtd>&vellip;</mtd>
+                </mtr>
+                <mtr>
+                  <mtd><msub><mi>a</mi><mn>n1</mn></msub></mtd>
+                  <mtd><msub><mi>a</mi><mn>n2</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>a</mi><mn>nn</mn></msub></mtd>
+                </mtr>
+              </mtable>
+              <mo>]</mo>
+            </mrow>
+            <mo>&#x23DF;</mo>
+          </munder>
+          <mi>A</mi>
+        </munder>
+        <mo>&times;</mo>
+        <munder>
+          <munder>
+            <!-- Second Matrix: B -->
+            <mrow>
+              <mo>[</mo>
+              <mtable>
+                <mtr>
+                  <mtd><msub><mi>b</mi><mn>11</mn></msub></mtd>
+                  <mtd><msub><mi>b</mi><mn>12</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>b</mi><mn>1n</mn></msub></mtd>
+                </mtr>
+                <mtr>
+                  <mtd><msub><mi>b</mi><mn>21</mn></msub></mtd>
+                  <mtd><msub><mi>b</mi><mn>22</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>b</mi><mn>2n</mn></msub></mtd>
+                </mtr>
+                <mtr>
+                  <mtd>&vellip;</mtd>
+                  <mtd>&vellip;</mtd>
+                  <mtd>&#8945;</mtd>
+                  <mtd>&vellip;</mtd>
+                </mtr>
+                <mtr>
+                  <mtd><msub><mi>b</mi><mn>n1</mn></msub></mtd>
+                  <mtd><msub><mi>b</mi><mn>n2</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>b</mi><mn>nn</mn></msub></mtd>
+                </mtr>
+              </mtable>
+              <mo>]</mo>
+            </mrow>
+            <mo>&#x23DF;</mo>
+          </munder>
+          <mi>B</mi>
+        </munder>
+        <!-- Equals Sign -->
+        <mo>=</mo>
+        <munder>
+          <munder>
+            <!-- Result Matrix: C -->
+            <mrow>
+              <mo>[</mo>
+              <mtable>
+                <mtr>
+                  <mtd><msub><mi>c</mi><mn>11</mn></msub></mtd>
+                  <mtd><msub><mi>c</mi><mn>12</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>c</mi><mn>1n</mn></msub></mtd>
+                </mtr>
+                <mtr>
+                  <mtd><msub><mi>c</mi><mn>21</mn></msub></mtd>
+                  <mtd><msub><mi>c</mi><mn>22</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>c</mi><mn>2n</mn></msub></mtd>
+                </mtr>
+                <mtr>
+                  <mtd>&vellip;</mtd>
+                  <mtd>&vellip;</mtd>
+                  <mtd>&#8945;</mtd>
+                  <mtd>&vellip;</mtd>
+                </mtr>
+                <mtr>
+                  <mtd><msub><mi>c</mi><mn>n1</mn></msub></mtd>
+                  <mtd><msub><mi>c</mi><mn>n2</mn></msub></mtd>
+                  <mtd>&hellip;</mtd>
+                  <mtd><msub><mi>c</mi><mn>nn</mn></msub></mtd>
+                </mtr>
+              </mtable>
+              <mo>]</mo>
+            </mrow>
+            <mo>&#x23DF;</mo>
+          </munder>
+          <mi>C</mi>
+        </munder>
+        <mtext>where</mtext>
+        <mrow>
+          <msub><mi>c</mi><mi>ij</mi></msub>
+          <mo>=</mo>
+          <munderover>
+            <mo>∑</mo>
+            <mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow>
+            <mrow><mi>n</mi></mrow>
+          </munderover>
+          <msub><mi>a</mi><mi>ik</mi></msub><msub><mi>b</mi><mi>kj</mi></msub>
+        </mrow>
+      </math>
+      <figcaption>Representation of Matrix multiplication: <i>A &times; B = C</i>. Each element of C is the dot product of a row of A and a column of B.</figcaption>
+      <button type="button" class="lightbox-trigger table-expand-btn" data-lightbox-target="matmul-equation">
+        <span aria-hidden="true">&#10530;</span> View figure larger
+      </button>
+    </figure>
+
     <h3>One important detail</h3>
     <p>
       Matrix multiplication doesn't commute, so A&times;B and B&times;A aren't the same computation, 

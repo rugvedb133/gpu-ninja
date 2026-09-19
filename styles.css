@@ -180,6 +180,22 @@ a:focus-visible {
   margin: 0;
 }
 
+/* == Math / Equation */
+.equation {
+  margin: 0.25rem;
+  color: var(--text-primary);
+  padding: 0.25rem;
+}
+
+.equation mo {
+  margin-inline: 0.5ch;
+}
+
+.equation mtext {
+  font-style: italic;
+  margin-inline: 1ch;
+}
+
 /* == Main == */
 main {
   max-width: 1080px;
@@ -316,7 +332,7 @@ dialog.lightbox {
   border-radius: 8px;
   background: var(--panel);
   padding: 1.5rem;
-  max-width: min(90vw, 800px);
+  max-width: min(90vw, 1000px);
   max-height: 90vh;
 }
 
@@ -339,6 +355,10 @@ dialog.lightbox img {
 #lightbox-content table {
   margin: 0;
   font-size: 1.05rem;
+}
+
+#lightbox-content math {
+  font-size: 1.1rem;
 }
 
 #lightbox-content pre {
