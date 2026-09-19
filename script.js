@@ -59,21 +59,40 @@ function typeInto(el, text) {
 // Lightbox: one shared <dialog>, filled in from whichever trigger was clicked. 
 // showModal() handles focus trapping, Escape-to-close, and returning focus to the trigger on close,
 // no manual work needed for any of that.
+// A trigger either wraps an <img> (the diagrams), or points at another
+// element on the page via [data-lightbox-target] (the results table); 
+// in that case the real element gets cloned in as-is, semantics and all,
+// rather than being redrawn as an image.
 function setUpLightbox() {
   const dialog = document.getElementById('lightbox');
   if (!dialog) return;
 
-  const dialogImg = document.getElementById('lightbox-img');
-  const dialogCaption = document.getElementById('lightbox-caption');
+  const content = document.getElementById('lightbox-content');
+  const captionEl = document.getElementById('lightbox-caption');
   const closeBtn = dialog.querySelector('.lightbox-close');
 
   document.querySelectorAll('.lightbox-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
-      const img = trigger.querySelector('img');
-      const figcaption = trigger.closest('figure')?.querySelector('figcaption');
-      dialogImg.src = img.src;
-      dialogImg.alt = img.alt;
-      dialogCaption.textContent = figcaption ? figcaption.textContent : '';
+      content.innerHTML = '';
+      let caption = '';
+
+      const targetId = trigger.dataset.lightboxTarget;
+      if (targetId) {
+        const source = document.getElementById(targetId);
+        if (!source) return;
+        content.appendChild(source.cloneNode(true));
+        caption = source.querySelector('caption')?.textContent || '';
+      } else {
+        const img = trigger.querySelector('img');
+        if (!img) return;
+        const clone = document.createElement('img');
+        clone.src = img.src;
+        clone.alt = img.alt;
+        content.appendChild(clone);
+        caption = trigger.closest('figure')?.querySelector('figcaption')?.textContent || '';
+      }
+
+      captionEl.textContent = caption;
       dialog.showModal();
     });
   });
@@ -87,5 +106,7 @@ function setUpLightbox() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', setUpTextAssets);
-document.addEventListener('DOMContentLoaded', setUpLightbox);
+document.addEventListener('DOMContentLoaded', () => {
+  setUpTextAssets();
+  setUpLightbox();
+});

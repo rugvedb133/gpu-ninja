@@ -269,7 +269,7 @@
     </p>
 
     <figure class="diagram">
-    <table>
+    <table id="results-table">
       <caption class="visually-hidden">Execution time by phase, single GPU vs. multi-GPU, 1000&times;1000 matrices</caption>
       <thead>
         <tr>
@@ -306,6 +306,10 @@
         </tr>
       </tbody>
     </table>
+
+    <button type="button" class="lightbox-trigger table-expand-btn" data-lightbox-target="results-table">
+      <span aria-hidden="true">&#10530;</span> View table larger
+    </button>
     </figure>
 
     <p>
@@ -436,7 +440,7 @@
 <script src="script.js" defer></script>
 <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-caption">
   <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
-  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-content"></div>
   <p id="lightbox-caption"></p>
 </dialog>
 
