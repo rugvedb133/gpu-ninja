@@ -8,9 +8,9 @@
   --text-primary: #E9ECE3;
   --text-secondary: #A3A996;
   --text-muted: #767C69;
-  --text-link: #5E9400;
 
   --brand: #76B900; /* real NVIDIA green */
+  --brand-muted: #5E9400;
 
   --gpu0: #3EA6FF; /* GPU 0 / C1 */
   --gpu1: #FFB000; /* GPU 1 / C2 */
@@ -52,7 +52,7 @@ img {
 }
 
 a {
-  color: var(--text-link);
+  color: var(--brand-muted);
   text-decoration: underline;
   text-decoration-color: rgba(118, 185, 0, 0.4);
   text-underline-offset: 3px;
@@ -109,6 +109,70 @@ a:focus-visible {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* == Site nav (sticky TOC + scroll progress) == */
+main,
+section[id] {
+  scroll-margin-top: 60px;
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  gap: 1.4rem;
+  overflow: auto;
+  padding: 0.75rem 1.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.site-nav-inner a {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav-inner a:hover {
+  color: var(--text-primary);
+}
+
+.site-nav-inner a[aria-current="location"] {
+  color: var(--brand);
+  border-bottom-color: var(--brand-muted);
+}
+
+.site-nav-home {
+  color: var(--text-muted) !important;
+  border-right: 1px solid var(--border);
+  padding-right: 1.4rem;
+}
+
+.scroll-progress {
+  height: 2px;
+  background: transparent;
+}
+
+#scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--brand);
+  transition: width 0.1s linear;
 }
 
 /* == Hero == */
@@ -267,7 +331,7 @@ section .quick-facts {
 }
 
 /* == Diagrams == */
-figure.diagram {
+.diagram {
   margin: 1.75rem 0;
   padding: 1.5rem;
   background: var(--panel);
@@ -276,14 +340,14 @@ figure.diagram {
   overflow: auto;
 }
 
-figure.diagram img {
+.diagram img {
   display: block;
   margin: 0 auto;
   max-width: 100%;
   height: auto;
 }
 
-figure.diagram figcaption {
+.diagram figcaption {
   margin-top: 1rem;
   text-align: center;
   font-family: var(--font-mono);
@@ -323,25 +387,25 @@ figure.diagram figcaption {
   color: var(--text-primary);
 }
 
-.term-prompt { color: var(--text-link); }
+.term-prompt { color: var(--brand-muted); }
 .term-command { color: var(--text-muted); }
 
 /* == Lightbox == */
-dialog.lightbox {
+.lightbox {
   border: none;
   border-radius: 8px;
   background: var(--panel);
   padding: 1.5rem;
-  max-width: min(90vw, 1000px);
+  max-width: 90vw;
   max-height: 90vh;
 }
 
-dialog.lightbox::backdrop {
+.lightbox::backdrop {
   background: rgba(10, 13, 10, 0.82);
   backdrop-filter: blur(2px);
 }
 
-dialog.lightbox img {
+.lightbox img {
   display: block;
   margin: 0 auto;
   max-width: 100%;
@@ -358,7 +422,7 @@ dialog.lightbox img {
 }
 
 #lightbox-content math {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 }
 
 #lightbox-content pre {
@@ -370,7 +434,7 @@ dialog.lightbox img {
   white-space: pre;
 }
 
-dialog.lightbox #lightbox-caption {
+.lightbox #lightbox-caption {
   margin: 1rem 0 0;
   text-align: center;
   font-family: var(--font-mono);
@@ -395,6 +459,7 @@ dialog.lightbox #lightbox-caption {
 
 .lightbox-close:hover {
   border-color: var(--brand);
+  color: var(--brand-muted);
 }
 
 /* == Foundations (assignment cards) == */
@@ -412,6 +477,10 @@ dialog.lightbox #lightbox-caption {
   background: var(--panel);
   border-radius: 8px;
   padding: 1.4rem 1.5rem;
+}
+
+.foundation-card:hover {
+  border-color: var(--brand-muted);
 }
 
 .foundation-index {
@@ -439,7 +508,7 @@ dialog.lightbox #lightbox-caption {
 .foundations-note {
   font-size: 0.95rem;
   color: var(--text-secondary);
-  border-left: 2px solid var(--text-link);
+  border-left: 2px solid var(--brand-muted);
   padding: 0.2rem 0 0.2rem 1rem;
   margin: 0 0 1rem;
 }
@@ -488,6 +557,7 @@ footer {
 .footer-inner {
   max-width: 1080px;
   margin: 0 auto;
+  padding: 0 1.5rem;
   font-size: 0.9rem;
   color: var(--text-secondary);
 }
@@ -531,7 +601,7 @@ table {
   font-size: 0.92rem;
 }
 
-.diagram:has(> #results-table) {
+.diagram:has(> #results-table, > #matmul-equation) {
   padding-bottom: 0;
 }
 
@@ -659,7 +729,7 @@ tbody td {
 .thread-msg .who.student { color: var(--gpu0); }
 .thread-msg .who.ta { color: var(--gpu2); }
 .thread-msg .who.instructor { color: var(--brand); }
-#foundations:hover .thread-msg:has(.instructor) { border-left:2px solid var(--brand);}
+#foundations:hover .thread-msg:has(.instructor) { border-color: var(--brand);}
 
 .thread-msg .msg {
   color: var(--text-primary);

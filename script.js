@@ -136,8 +136,60 @@ function setUpMath() {
   document.head.appendChild(script);
 }
 
+// Thin progress bar reflecting how far down the page the visitor's scrolled. 
+// Not gated behind reduced-motion since it's a functional position indicator, not decorative animation, 
+// and the width change is a plain CSS transition already neutralized by the reduced-motion rule in styles.css.
+function setUpScrollProgress() {
+  const bar = document.getElementById('scroll-progress-bar');
+  if (!bar) return;
+
+  const update = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    bar.style.width = `${pct}%`;
+  };
+
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+}
+
+// Highlights whichever section is currently under the sticky nav with aria-current="location"
+// ("location" being the token ARIA defines specifically for "where you are" within a set of navigation links,
+// rather than "page" (a different page) or a plain "true").
+function setUpSectionNav() {
+  const navLinks = document.querySelectorAll('.site-nav-inner a[href^="#"]');
+  const sections = document.querySelectorAll('main > section[id]');
+  if (!navLinks.length || !sections.length) return;
+
+  const linkByTarget = new Map();
+  navLinks.forEach((a) => {
+    const id = a.getAttribute('href').slice(1);
+    if (id) linkByTarget.set(id, a);
+  });
+
+  const navHeight = document.getElementById('site-nav')?.offsetHeight || 0;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const link = linkByTarget.get(entry.target.id);
+        if (!link) return;
+        navLinks.forEach((a) => a.removeAttribute('aria-current'));
+        link.setAttribute('aria-current', 'location');
+      });
+    },
+    { rootMargin: `-${navHeight + 8}px 0px -70% 0px`, threshold: 0 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   setUpTextAssets();
   setUpLightbox();
   setUpMath();
+  setUpScrollProgress();
+  setUpSectionNav();
 });

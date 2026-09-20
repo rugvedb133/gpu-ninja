@@ -26,8 +26,9 @@
 
 <!-- Icons -->
 <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/+png" href="apple-touch-icon.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" href="apple-touch-icon.png">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +40,22 @@
 <body>
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav id="site-nav" class="site-nav" aria-label="Section navigation">
+  <div class="site-nav-inner">
+    <a href="#" class="site-nav-home">&uarr; Top</a>
+    <a href="#foundations">Foundations</a>
+    <a href="#problem">Problem</a>
+    <a href="#hardware">Hardware</a>
+    <a href="#approach">Approach</a>
+    <a href="#results">Results</a>
+    <a href="#limitations">Limitations</a>
+    <a href="#reflection">Reflection</a>
+  </div>
+  <div class="scroll-progress" aria-hidden="true">
+    <div id="scroll-progress-bar"></div>
+  </div>
+</nav>
 
 <header class="hero">
   <div class="hero-inner">
@@ -155,134 +172,135 @@
 
     <figure class="diagram">
       <div id="matmul-equation" class="equation">
-      <math display="block" id="matmul-equation" class="equation">
-        <munder>
+        <math display="block">
           <munder>
-            <!-- First Matrix: A -->
-            <mrow>
-              <mo>[</mo>
-              <mtable>
-                <mtr>
-                  <mtd><msub><mi>a</mi><mn>11</mn></msub></mtd>
-                  <mtd><msub><mi>a</mi><mn>12</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>a</mi><mn>1n</mn></msub></mtd>
-                </mtr>
-                <mtr>
-                  <mtd><msub><mi>a</mi><mn>21</mn></msub></mtd>
-                  <mtd><msub><mi>a</mi><mn>22</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>a</mi><mn>2n</mn></msub></mtd>
-                </mtr>
-                <mtr>
-                  <mtd>&vellip;</mtd>
-                  <mtd>&vellip;</mtd>
-                  <mtd>&#8945;</mtd>
-                  <mtd>&vellip;</mtd>
-                </mtr>
-                <mtr>
-                  <mtd><msub><mi>a</mi><mn>n1</mn></msub></mtd>
-                  <mtd><msub><mi>a</mi><mn>n2</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>a</mi><mn>nn</mn></msub></mtd>
-                </mtr>
-              </mtable>
-              <mo>]</mo>
-            </mrow>
-            <mo>&#x23DF;</mo>
+            <munder>
+              <!-- First Matrix: A -->
+              <mrow>
+                <mo>[</mo>
+                <mtable>
+                  <mtr>
+                    <mtd><msub><mi>a</mi><mn>11</mn></msub></mtd>
+                    <mtd><msub><mi>a</mi><mn>12</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>a</mi><mn>1n</mn></msub></mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd><msub><mi>a</mi><mn>21</mn></msub></mtd>
+                    <mtd><msub><mi>a</mi><mn>22</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>a</mi><mn>2n</mn></msub></mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd>&vellip;</mtd>
+                    <mtd>&vellip;</mtd>
+                    <mtd>&#8945;</mtd>
+                    <mtd>&vellip;</mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd><msub><mi>a</mi><mn>n1</mn></msub></mtd>
+                    <mtd><msub><mi>a</mi><mn>n2</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>a</mi><mn>nn</mn></msub></mtd>
+                  </mtr>
+                </mtable>
+                <mo>]</mo>
+              </mrow>
+              <mo>&#x23DF;</mo>
+            </munder>
+            <mi>A</mi>
           </munder>
-          <mi>A</mi>
-        </munder>
-        <mo>&times;</mo>
-        <munder>
+          <mo>&times;</mo>
           <munder>
-            <!-- Second Matrix: B -->
-            <mrow>
-              <mo>[</mo>
-              <mtable>
-                <mtr>
-                  <mtd><msub><mi>b</mi><mn>11</mn></msub></mtd>
-                  <mtd><msub><mi>b</mi><mn>12</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>b</mi><mn>1n</mn></msub></mtd>
-                </mtr>
-                <mtr>
-                  <mtd><msub><mi>b</mi><mn>21</mn></msub></mtd>
-                  <mtd><msub><mi>b</mi><mn>22</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>b</mi><mn>2n</mn></msub></mtd>
-                </mtr>
-                <mtr>
-                  <mtd>&vellip;</mtd>
-                  <mtd>&vellip;</mtd>
-                  <mtd>&#8945;</mtd>
-                  <mtd>&vellip;</mtd>
-                </mtr>
-                <mtr>
-                  <mtd><msub><mi>b</mi><mn>n1</mn></msub></mtd>
-                  <mtd><msub><mi>b</mi><mn>n2</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>b</mi><mn>nn</mn></msub></mtd>
-                </mtr>
-              </mtable>
-              <mo>]</mo>
-            </mrow>
-            <mo>&#x23DF;</mo>
+            <munder>
+              <!-- Second Matrix: B -->
+              <mrow>
+                <mo>[</mo>
+                <mtable>
+                  <mtr>
+                    <mtd><msub><mi>b</mi><mn>11</mn></msub></mtd>
+                    <mtd><msub><mi>b</mi><mn>12</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>b</mi><mn>1n</mn></msub></mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd><msub><mi>b</mi><mn>21</mn></msub></mtd>
+                    <mtd><msub><mi>b</mi><mn>22</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>b</mi><mn>2n</mn></msub></mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd>&vellip;</mtd>
+                    <mtd>&vellip;</mtd>
+                    <mtd>&#8945;</mtd>
+                    <mtd>&vellip;</mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd><msub><mi>b</mi><mn>n1</mn></msub></mtd>
+                    <mtd><msub><mi>b</mi><mn>n2</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>b</mi><mn>nn</mn></msub></mtd>
+                  </mtr>
+                </mtable>
+                <mo>]</mo>
+              </mrow>
+              <mo>&#x23DF;</mo>
+            </munder>
+            <mi>B</mi>
           </munder>
-          <mi>B</mi>
-        </munder>
-        <!-- Equals Sign -->
-        <mo>=</mo>
-        <munder>
-          <munder>
-            <!-- Result Matrix: C -->
-            <mrow>
-              <mo>[</mo>
-              <mtable>
-                <mtr>
-                  <mtd><msub><mi>c</mi><mn>11</mn></msub></mtd>
-                  <mtd><msub><mi>c</mi><mn>12</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>c</mi><mn>1n</mn></msub></mtd>
-                </mtr>
-                <mtr>
-                  <mtd><msub><mi>c</mi><mn>21</mn></msub></mtd>
-                  <mtd><msub><mi>c</mi><mn>22</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>c</mi><mn>2n</mn></msub></mtd>
-                </mtr>
-                <mtr>
-                  <mtd>&vellip;</mtd>
-                  <mtd>&vellip;</mtd>
-                  <mtd>&#8945;</mtd>
-                  <mtd>&vellip;</mtd>
-                </mtr>
-                <mtr>
-                  <mtd><msub><mi>c</mi><mn>n1</mn></msub></mtd>
-                  <mtd><msub><mi>c</mi><mn>n2</mn></msub></mtd>
-                  <mtd>&hellip;</mtd>
-                  <mtd><msub><mi>c</mi><mn>nn</mn></msub></mtd>
-                </mtr>
-              </mtable>
-              <mo>]</mo>
-            </mrow>
-            <mo>&#x23DF;</mo>
-          </munder>
-          <mi>C</mi>
-        </munder>
-        <mtext>where</mtext>
-        <mrow>
-          <msub><mi>c</mi><mi>ij</mi></msub>
+          <!-- Equals Sign -->
           <mo>=</mo>
-          <munderover>
-            <mo>∑</mo>
-            <mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow>
-            <mrow><mi>n</mi></mrow>
-          </munderover>
-          <msub><mi>a</mi><mi>ik</mi></msub><msub><mi>b</mi><mi>kj</mi></msub>
-        </mrow>
-      </math>
+          <munder>
+            <munder>
+              <!-- Result Matrix: C -->
+              <mrow>
+                <mo>[</mo>
+                <mtable>
+                  <mtr>
+                    <mtd><msub><mi>c</mi><mn>11</mn></msub></mtd>
+                    <mtd><msub><mi>c</mi><mn>12</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>c</mi><mn>1n</mn></msub></mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd><msub><mi>c</mi><mn>21</mn></msub></mtd>
+                    <mtd><msub><mi>c</mi><mn>22</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>c</mi><mn>2n</mn></msub></mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd>&vellip;</mtd>
+                    <mtd>&vellip;</mtd>
+                    <mtd>&#8945;</mtd>
+                    <mtd>&vellip;</mtd>
+                  </mtr>
+                  <mtr>
+                    <mtd><msub><mi>c</mi><mn>n1</mn></msub></mtd>
+                    <mtd><msub><mi>c</mi><mn>n2</mn></msub></mtd>
+                    <mtd>&hellip;</mtd>
+                    <mtd><msub><mi>c</mi><mn>nn</mn></msub></mtd>
+                  </mtr>
+                </mtable>
+                <mo>]</mo>
+              </mrow>
+              <mo>&#x23DF;</mo>
+            </munder>
+            <mi>C</mi>
+          </munder>
+          <mtext>where</mtext>
+          <mrow>
+            <msub><mi>c</mi><mi>ij</mi></msub>
+            <mo>=</mo>
+            <munderover>
+              <mo>∑</mo>
+              <mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow>
+              <mrow><mi>n</mi></mrow>
+            </munderover>
+            <msub><mi>a</mi><mi>ik</mi></msub><msub><mi>b</mi><mi>kj</mi></msub>
+          </mrow>
+        </math>
       </div>
+
       <figcaption>Representation of Matrix multiplication: <i>A &times; B = C</i>. Each element of C is the dot product of a row of A and a column of B.</figcaption>
       <button type="button" class="lightbox-trigger table-expand-btn" data-lightbox-target="matmul-equation">
         <span aria-hidden="true">&#10530;</span> View figure larger
@@ -354,7 +372,7 @@
     <figure class="diagram">
       <button type="button" class="lightbox-trigger" data-lightbox-target="block-split-img">
         <span class="visually-hidden">View larger: </span>
-        <img id="block-split-img" src="assets/block-split.svg" width="560" height="180" alt="Matrix A split into row-blocks A1 and A2, matrix B split into column-blocks B1 and B2. Multiplying them gives four quadrants of result matrix C: C1 = A1×B1 on GPU 0, C2 = A1×B2 on GPU 1, C3 = A2×B1 on GPU 2, C4 = A2×B2 on GPU 3.">
+        <img id="block-split-img" src="assets/block-split.svg" width="560" height="180" loading="lazy" decoding="async" alt="Matrix A split into row-blocks A1 and A2, matrix B split into column-blocks B1 and B2. Multiplying them gives four quadrants of result matrix C: C1 = A1×B1 on GPU 0, C2 = A1×B2 on GPU 1, C3 = A2×B1 on GPU 2, C4 = A2×B2 on GPU 3.">
       </button>
       <figcaption>How the multiplication splits into four independent pieces</figcaption>
     </figure>
@@ -463,7 +481,7 @@
     <figure class="diagram">
       <button type="button" class="lightbox-trigger" data-lightbox-target="results-chart-img">
         <span class="visually-hidden">View larger: </span>
-        <img id="results-chart-img" src="assets/results-chart.svg" width="670" height="380" alt="Bar chart of the same five phases, single GPU vs multi-GPU. Each row is scaled to its own maximum since the phases span very different time scales. Setting up the problem: single GPU 0.028903s, multi-GPU 0.159160s (multi-GPU 5.5x slower). Allocating device variables: single GPU 0.191964s, multi-GPU 0.108678s (multi-GPU 1.8x faster). Copying host to device: single GPU 0.002340s, multi-GPU 0.001864s (multi-GPU 1.3x faster). Executing kernel: single GPU 0.004720s, multi-GPU 0.000048s (multi-GPU 98.3x faster). Copying device to host: single GPU 0.003046s, multi-GPU 0.001845s (multi-GPU 1.7x faster).">
+        <img id="results-chart-img" src="assets/results-chart.svg" width="670" height="380" loading="lazy" decoding="async" alt="Bar chart of the same five phases, single GPU vs multi-GPU. Each row is scaled to its own maximum since the phases span very different time scales. Setting up the problem: single GPU 0.028903s, multi-GPU 0.159160s (multi-GPU 5.5x slower). Allocating device variables: single GPU 0.191964s, multi-GPU 0.108678s (multi-GPU 1.8x faster). Copying host to device: single GPU 0.002340s, multi-GPU 0.001864s (multi-GPU 1.3x faster). Executing kernel: single GPU 0.004720s, multi-GPU 0.000048s (multi-GPU 98.3x faster). Copying device to host: single GPU 0.003046s, multi-GPU 0.001845s (multi-GPU 1.7x faster).">
       </button>
       <figcaption>Same five phases, bar for bar — each row scaled to its own maximum</figcaption>
     </figure>
